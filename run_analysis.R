@@ -1,17 +1,17 @@
 ### Course Project
 library(dplyr)
-setwd("C:/Users/Maxi/Desktop/Coursera/John Hopkins Data Science/Getting and Cleaning Data")
+setwd("C:/Users/Maxi/Desktop/Coursera/Git_Github/GettingAndCleaningDataProject")
 
 
 ## Download and save data
 if (!file.exists("UCI_dataset.zip")){
-  file_url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip "
-  download.file(file_url, "UCI_dataset.zip", method="curl")
+  file_url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+  download.file(file_url, "UCI_dataset.zip")
 }
 if (!file.exists("UCI HAR Dataset")) { 
-  unzip(filename) 
+  unzip("UCI_dataset.zip") 
 }
-setwd("C:/Users/Maxi/Desktop/Coursera/John Hopkins Data Science/Getting and Cleaning Data/UCI HAR Dataset")
+setwd("C:/Users/Maxi/Desktop/Coursera/Git_Github/GettingAndCleaningDataProject/UCI HAR Dataset")
 
 
 ## Load data into R
@@ -58,4 +58,11 @@ names(tidy_df) <- gsub("[()]", "", names(tidy_df))
 summary_df <- tidy_df %>% 
   group_by(Activity, Subject) %>% 
   summarize_all(mean)
+
+## Save the cleaned data
+setwd("C:/Users/Maxi/Desktop/Coursera/Git_Github/GettingAndCleaningDataProject")
+write.table(tidy_df, "tidy.txt", row.names=FALSE)
+write.table(summary_df, "summary.txt", row.names=FALSE)
+
+
 
